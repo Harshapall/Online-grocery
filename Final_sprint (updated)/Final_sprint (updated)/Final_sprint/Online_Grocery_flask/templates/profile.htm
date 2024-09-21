@@ -1,0 +1,134 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"/>
+    <style>
+        .update-button{
+         background-color:green;
+        color:white;
+        bottom:50px;
+        border-radius:8px;
+        font-size:15px;
+        padding:10px;}
+        .update-button:hover{
+        background-color:green;}
+        .deactive{
+        background-color:red;
+        color:white;
+        bottom:50px;
+        border-color:white;
+        margin-top:165px;
+        margin-left:-140px;
+        boder:none;
+        border-radius:8px;
+        font-size:15px;
+        padding:10px;
+        }
+        .profile{
+            display:flex;
+            justify-content: center;
+            justify-items:center;
+            padding: 30px;
+            margin-top:60px;
+            border: 2px solid black;
+            border-radius: 12px;
+            width:500px;
+            margin-left:390px;
+        }
+    </style>
+    <script>
+              function errorName(){
+        var pattern_1=/^[a-zA-Z\s]+$/;
+        var val1 = document.getElementById("name").value;
+        var errorname = document.getElementById("errorname");
+        if (val1==""){
+            errorname.innerHTML="Enter name".fontcolor('red').bold();
+        }else if(val1.match(pattern_1)) {
+                errorname.innerHTML = "";
+            }else{
+                alert("Invalid username")
+            }
+       }
+
+       function verifyemail(){
+        pattern_2= /^[\w]+@[a-zA-Z]+\.[a-z]+$/;
+        var val2 = document.getElementById("email").value;
+        var erroremail = document.getElementById("erroremail");
+        if(val2==""){
+            erroremail.innerHTML="Enter email".fontcolor('red').bold();
+        }else if(val2.match(pattern_2)){
+            erroremail.innerHTML="";
+        }else{
+            erroremail.innerHTML="invalid Email".fontcolor('red').bold();
+        }
+       }
+
+       function verifypassword(){
+        pattern_3=/(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&-=/+~_])^[A-Za-z].{5,16}$/;
+        var val3 = document.getElementById("password").value;
+        var errorpassword = document.getElementById("errorpassword");
+        if (val3==""){
+            errorpassword.innerHTML="Enter Password".fontcolor('red').bold();
+        }else if(val3.match(pattern_3)) {
+                errorpassword.innerHTML = "";
+            }else{
+                alert("Password is not Matching the Criteria")
+            }
+       }
+
+       function verifynumber(){
+        pattern_4=/\d{10}/;
+        var val4 = document.getElementById("number").value;
+        var errornumber = document.getElementById("errornumber");
+        if(val4==""){
+            errornumber.innerHTML="Enter number".fontcolor('red').bold();
+        }else if(val4.match(pattern_4)){
+            errornumber.innerHTML="";
+        }else{
+            errornumber.innerHTML="invalid number".fontcolor('red').bold();
+        }
+       }
+    </script>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+<nav>
+    <img style="height: 20px; margin-left:30px; margin-top:10px; float:left;" src="static\home.jpeg">
+    <a href="/home">Home</a>
+    <img style="height: 25px; margin-left:30px; margin-top:10px; float:left;" src="static\profile.jpeg">
+    <a href="/profile">Profile</a>
+    <img style="height: 20px; margin-left:30px; margin-top:10px; float:left;" src="static\cart.png">
+    <a href="/cart">Cart </a>
+    <img style="height: 20px; margin-right:30px; margin-top:10px; float:right;" src="static\logout.jpeg">
+    <a style="float:right;" href="/logout">Logout</a>
+</nav>
+<h1 align="center">Profile</h1>
+<div class="profile">
+      <form method="POST" action="/user_profile" enctype="multipart/form-data">
+            <table>
+                <tbody>
+                <tr>
+                    <td>customer ID</td> <td><input type="number" name="id" value="{{session.get('user_id')}}" readonly/></td> </tr>
+                <tr><td>customer Name</td><td><input type="text" onkeyup="errorName()" id="name" name="name" value="{{session.get('user_name')}}"/><p id="errorname"></p></td></tr>
+                <tr><td>customer Email</td><td><input type="email" onkeyup="verifyemail()" id="email" name="email" value="{{session.get('user_email')}}"/><p id="erroremail"></p></td></tr>
+                <tr><td>customer Password</td><td><input type="password" id="password" onblur="verifypassword()" name="pass" value="{{session.get('user_password')}}"/><p id="errorpassword"></p></td></tr>
+                <tr><td>customer Address</td><td><input type="text" id="Address" name="add" value="{{session.get('user_address')}}"/></td></tr>
+                <tr><td>customer Phonenumber</td><td><input type="text" maxlength="10" onblur="verifynumber()" id="number" name="phone" value="{{session.get('user_phone')}}"/><p id="errornumber"></p></td></tr>
+                <td><button  type="submit" name="update" style="margin-left:100px;margin-top:20px;" class="update-button">Update</button></td>
+
+                </tbody>
+            </table>
+      </form>
+    <form action="{{url_for('deactivate_account')}}" method="post">
+                            <input type="hidden" name="Deactive" value="Deactive">
+                            <button class="deactive" type="submit">Deactivate</button>
+                        </form>
+
+
+
+</div>
+</body>
+</html>

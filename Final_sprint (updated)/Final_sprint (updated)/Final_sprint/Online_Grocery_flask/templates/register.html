@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Registeration Page</title>
+    <link rel='stylesheet' href='/static/reg.css'>
+    <script>
+        function errorName() {
+            var pattern_1 = /^[a-zA-Z\s]+$/;
+            var val1 = document.getElementById("name").value;
+            var errorname = document.getElementById("errorname");
+    
+            if (val1 === "") {
+                errorname.innerHTML = "Enter name".fontcolor('red').bold();
+                return false;
+            } else if (val1.match(pattern_1)) {
+                errorname.innerHTML = "";
+                return true;
+            } else {
+                errorname.innerHTML = "Invalid username".fontcolor('red').bold();
+                return false;
+            }
+        }
+    
+        function verifyemail() {
+            var pattern_2 = /^[\w]+@[a-zA-Z]+\.[a-z]+$/;
+            var val2 = document.getElementById("email").value;
+            var erroremail = document.getElementById("erroremail");
+    
+            if (val2 === "") {
+                erroremail.innerHTML = "Enter email".fontcolor('red').bold();
+                return false;
+            } else if (val2.match(pattern_2)) {
+                erroremail.innerHTML = "";
+                return true;
+            } else {
+                erroremail.innerHTML = "Invalid Email".fontcolor('red').bold();
+                return false;
+            }
+        }
+    
+        function verifypassword() {
+            var pattern_3 = /(?=.*[A-Z])(?=.*[a-z])(?=.*[0-9])(?=.*[!@#$&-=/+~_])^[A-Za-z].{5,16}$/;
+            var val3 = document.getElementById("password").value;
+            var errorpassword = document.getElementById("errorpassword");
+    
+            if (val3 === "") {
+                errorpassword.innerHTML = "Enter Password".fontcolor('red').bold();
+                return false;
+            } else if (val3.match(pattern_3)) {
+                errorpassword.innerHTML = "";
+                return true;
+            } else {
+                errorpassword.innerHTML = "Password is not Matching the Criteria".fontcolor('red').bold();
+                return false;
+            }
+        }
+    
+        function verifynumber() {
+            var pattern_4 = /\d{10}/;
+            var val4 = document.getElementById("number").value;
+            var errornumber = document.getElementById("errornumber");
+    
+            if (val4 === "") {
+                errornumber.innerHTML = "Enter number".fontcolor('red').bold();
+                return false;
+            } else if (val4.match(pattern_4)) {
+                errornumber.innerHTML = "";
+                return true;
+            } else {
+                errornumber.innerHTML = "Invalid number".fontcolor('red').bold();
+                return false;
+            }
+        }
+    
+    </script>
+</head>
+
+<body style="background-image: url('/static/some.jpg')">
+<h2>Online Grocery Register</h2>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                {%if message%}
+                    <div style="color:darkred;font-weight:20px;">
+                    <h3>{{message}}</h3>
+                    </div>
+                {%endif%}
+                <form action="\validate" method="post">
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="text" name="name" id="name" onkeyup="errorName()" required>
+                        <label>customer Name</label>
+                        <p id="errorname"></p>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="email" name="email" id="email" onkeyup="verifyemail()" required>
+                        <label>customer Email</label>
+                        <p id="erroremail"></p>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="password" name="pass" id="password" onblur="verifypassword()" required>
+                        <label>Password</label>
+                        <p id="errorpassword"></p>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="textarea" name="add" required>
+                        <label>customer Address</label>
+                        
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="text" name="phone" maxlength="10" id="number" onblur="verifynumber()" required>
+                        <label>customer phone number</label>
+                        <p id="errornumber"></p>
+                    </div>
+                    <button>Sign Up</button>
+                    <div class="register">
+                        <p>already have an account? <a href="\">Sign In</a></p>
+                    </div>
+                    {%if ids%}
+                        <div name="acks">
+                        <div class="text">
+                        <h6 style="color:green; font-size:20px;margin-top:2px; margin-bottom:5px;padding-bottom:5px;padding-top:3px">Customer Registration Successful</h6>
+                        </div>
+                        <p name="customername" style="text-align:center;top:0px; margin-bottom:5px;padding-bottom:30px;padding-top:-3px">{{ids}}</p>
+                        </div>
+                    {%endif%}
+                </form>
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

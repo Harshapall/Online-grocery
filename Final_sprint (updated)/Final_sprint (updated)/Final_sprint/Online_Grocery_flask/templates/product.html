@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+     <title>Admin customization</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"/>
+    <style>
+        .add_product{
+            display:flex;
+            justify-content: center;
+            justify-items:center;
+            padding: 30px;
+            padding-left:100px;
+            margin-top:60px;
+            border: 2px solid black;
+            border-radius: 12px;
+            width:500px;
+            margin-left:390px;
+        }
+        .btn1{
+            border:none;
+            border-radius:8px;
+                background-color: #669b30;
+            color: white;
+            font-size: medium;
+            padding:8px;
+            height:35px;
+        }
+        .btn1:hover{
+            background-color: #4CAF50;
+        }
+    </style>
+</head>
+<body>
+        <header>
+            <h2>Welcome to Our Grocery Store</h2>
+        </header>
+
+  <nav>
+
+     <a href="/products" style="margin-top:10px;">View Products</a>
+    <a href="/add_product" style="margin-top:10px;">Add Products</a>
+    <div class="dropdown">
+        <button class="dropbtn">Changes</button>
+        <div class="dropdown-content">
+            <a href='/update_products' >update products</a>
+            <a href="{{url_for('orderpage')}}">Orders</a>
+            <a href="{{url_for('admin_customers')}}">Customers</a>
+        </div>
+    </div>
+    <a style="height: 20px;margin-left:450px;margin-top:10px;float:left;" href="">Welcome to admin page!!</a>
+
+    <a style="margin-top:10px;float:right;" href="/">Logout</a>
+
+</nav>
+        <h1 align="center">Add Product</h1>
+        <div class="add_product">
+
+            <form method="POST" action="/add_product" enctype="multipart/form-data">
+                <label >Product Name:</label>
+                <input style="margin-left:25px;border-radius:3px;" type="text" name="pname" required><br><br>
+                <label >Price:</label>
+                <input style="margin-left:90px;border-radius:3px;" type="number" name="price" required><br><br>
+                <label >Category:</label>
+                <input style="margin-left:60px;border-radius:3px;" type="text" name="category"><br><br>
+                <label >Image:</label>
+                <input  style="margin-left:80px;border-radius:3px;" type="file" name="image" required><br><br>
+                <button class="btn1" type="submit">Add Product</button>
+            </form>
+            </div>
+
+
+</body>
+</html>

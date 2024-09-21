@@ -1,0 +1,17 @@
+body {
+    margin: 0;
+    padding: 0;
+    background-color:lightyellow;
+  }
+.frame1{
+height:300px;
+margin-left:480px;
+margin-top:-70px;
+border-radius:30px;
+top:500px;
+width:400px;
+background-color:lightgreen;
+  box-shadow: 9px 9px 16px rgb(163,177,198,0.6), -9px -9px 16px    rgba(255,255,255, 0.5);
+}
+.form2{
+margin-top:20px;}

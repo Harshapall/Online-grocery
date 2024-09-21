@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Account Activation</title>
+    <style>
+        .active{
+        background-color:#478778;
+        color:white;
+        bottom:50px;
+        boder:none;
+        border-color:white;
+        border-radius:8px;
+        font-size:15px;
+        padding:10px;
+        }
+        .active:hover{
+        background-color:green;
+        }
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f8f9fa;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            text-align: center;
+        }
+
+        .message {
+            background-color: #fff;
+            padding: 20px;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+
+        h1 {
+            color: #333;
+            font-size: 24px;
+            margin-bottom: 20px;
+        }
+
+        p {
+            color: #666;
+            font-size: 18px;
+        }
+
+        a {
+            color: #007bff;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+    </style>
+</head>
+<body>
+    <div class="message">
+        <h1>Your Account has been Inactive</h1>
+        <form action="{{url_for('restore_account')}}" method="post">
+                            <input type="hidden" name="active" value="Active">
+                            <button type="submit" class="active">Activate</button>
+                        </form>
+        <p><a href="/">Exit</a></p>
+    </div>
+</body>
+</html>

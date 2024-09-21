@@ -1,0 +1,147 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Products</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"/>
+    <style>
+
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .product:hover {
+            transform: translateY(-5px); /* Move the item up by 5px when hovered */
+        }
+
+        .product:hover img {
+            transform: scale(1.1); /* Zoom the image by 10% when hovered */
+        }
+
+
+
+
+        .update-button, .delete-button {
+            background-color: green; /* Update button color */
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            cursor: pointer;
+            margin-right: 10px;
+            margin-left: 20px;
+        }
+        td{
+        text-align:left;
+        }
+        #button1{
+                display:flex;
+                flex-direction:row;
+                margin-right:6px;
+                border-radius:5px;
+        }
+        table{
+        padding-left:25px;
+        margin-bottom:3px;
+        }
+        .delete-button {
+            position:absolute;
+            margin:-24px 103px;
+            background-color: red; /* Delete button color */
+        }
+        .input1{
+        width:60px;
+        border:none;
+        }
+        .input2{
+        width:60px;
+        border:none;
+        }
+
+         .search{
+        top:10%;
+        float:right;
+        margin-right:200px;
+        display:flex;
+        margin-top:-30px;
+        }
+
+        .button2{
+        border:none;
+        border-radius:8px;
+        color:white;
+        height:20px;
+        background-color:green;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+
+
+ <nav>
+
+    <a href="/products" style="margin-top:10px;">View Products</a>
+    <a href="/add_product" style="margin-top:10px;">Add Products</a>
+    <div class="dropdown">
+        <button class="dropbtn">Changes</button>
+        <div class="dropdown-content">
+            <a href='/update_products' >update products</a>
+            <a href="{{url_for('orderpage')}}">Orders</a>
+            <a href="{{url_for('admin_customers')}}">Customers</a>
+        </div>
+    </div>
+    <a style="height: 20px;margin-left:450px;margin-top:10px;float:left;" href="">Welcome to admin page!!</a>
+
+    <a style="margin-top:10px;float:right;" href="/">Logout</a>
+</nav>
+
+<h1 style="margin-left:25px;">Products</h1>
+<div class="search">
+    <form action="/update_category" method="post">
+        <input style="border-radius:8px;height:20px;" type="text" name="category" placeholder="Enter category">
+        <button class="button2" type="submit">Search</button>
+    </form>
+</div>
+
+<div class="grid-container" style="align-items:center;justify-content:center;">
+    {% for product in products %}
+    <div class="product">
+        <img src="{{ product[4] }}" alt="Product Image">
+        <form method="POST" action="/update_product" enctype="multipart/form-data">
+            <table><input class="input1" style="margin-left:55px;border-radius:10px;" type="hidden" value="{{product[0]}}" name="pid" required>
+               <tr><td>Name:</td><td> <input class="input2" type="text" value="{{product[1]}}" name="pname" required></td></tr>
+                <tr><td>Price:</td><td><input class="input2" type="number" value="{{product[2]}}"name="price" required></td></tr>
+                <tr><td>Category: </td><td><input class="input2" type="text" name="category" value="{{product[3]}}"></td></tr>
+            </table>
+            <button id="button1" type="submit" class="update-button">Update</button>
+        </form>
+        <form action="/delete_product" method="POST">
+                <div class="button-container">
+                    <input type="hidden" name="id" value="{{ product[0] }}">
+                    <button id="button1" type="submit" class="delete-button">Delete</button>
+                </div>
+            </form>
+
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

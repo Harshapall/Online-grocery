@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>View Products</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"/>
+    <style>
+        .grid-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+            gap: 20px;
+            padding: 20px;
+        }
+
+        .product {
+            border: 1px solid #ccc;
+            padding: 10px;
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .product img {
+            max-width: 100px;
+            max-height: 100px;
+        }
+
+        .product:hover {
+            transform: translateY(-5px); /* Move the item up by 5px when hovered */
+        }
+
+        .product:hover img {
+            transform: scale(1.1); /* Zoom the image by 10% when hovered */
+        }
+
+        .search {
+            top: 10%;
+            float: right;
+            margin-right: 150px;
+            margin-top: -30px;
+        }
+
+        .search input {
+            border-radius: 8px;
+            height: 20px;
+        }
+
+        button {
+            border: none;
+            border-radius: 8px;
+            color: white;
+            height: 20px;
+            background-color: green;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+
+<nav>
+    <a href="/products" style="margin-top:10px;">View Products</a>
+    <a href="/add_product" style="margin-top:10px;">Add Products</a>
+    <div class="dropdown">
+        <button class="dropbtn">Changes</button>
+        <div class="dropdown-content">
+            <a href='/update_products' >update products</a>
+            <a href="{{url_for('orderpage')}}">Orders</a>
+            <a href="{{url_for('admin_customers')}}">Customers</a>
+        </div>
+    </div>
+    <a style="height: 20px;margin-left:450px;margin-top:10px;float:left;" href="">Welcome to admin page!!</a>
+    <a style="margin-top:10px;float:right;" href="/">Logout</a>
+</nav>
+
+<h1 style="margin-left:20px;">Products</h1>
+<div class="search">
+    <form action="/products" method="post">
+        <input type="text" name="category" placeholder="Enter category">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<div class="grid-container">
+    {% for product in products %}
+    <div class="product">
+        <img src="{{ product[4] }}" alt="Product Image">
+        <p>Name: {{ product[1] }}</p>
+        <p>Price: {{ product[2] }}</p>
+        <p>Category: {{ product[3] }}</p>
+    </div>
+    {% endfor %}
+</div>
+
+</body>
+</html>

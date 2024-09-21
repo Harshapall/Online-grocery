@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+    <meta charset='UTF-8'>
+    <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+    <title>Login Page</title>
+    <link rel='stylesheet' href='/static/some.css'>
+</head>
+
+<body style="background-image: url('/static/some.jpg')">
+<h2 style="margin-top:30px;">Online Grocery Admin</h2>
+    <section>
+        <div class="form-box">
+            <div class="form-value">
+                <form action="\admin_validation" method="post">
+                    <h2>Admin Login</h2>
+                    <div class="inputbox">
+                        <ion-icon name="mail-outline"></ion-icon>
+                        <input type="number" name="name" required>
+                        <label>customer ID</label>
+                    </div>
+                    <div class="inputbox">
+                        <ion-icon name="lock-closed-outline"></ion-icon>
+                        <input type="password" name="pass" required>
+                        <label>Password</label>
+                    </div>
+                    <button>Log In</button>
+                    <div class="register">
+                        <p>Are you user? <a href="\">User Sign In</a></p>
+                    </div>
+                </form>
+                {%if  message %}
+                <p style="color: red; font-weight: bold; text-align: center;">{{ message}}</p>
+                {%endif%}
+            </div>
+        </div>
+    </section>
+</body>
+
+</html>

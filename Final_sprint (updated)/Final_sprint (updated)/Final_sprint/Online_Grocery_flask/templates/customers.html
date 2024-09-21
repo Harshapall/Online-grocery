@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Customer Details</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"/>
+    <style>
+             table, th, td,tr{
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding:10px;
+            margin-left:40px;
+            margin-bottom:30px;
+}
+table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top:10px;
+            margin-left:50px;
+
+        }
+        th{
+        background-color:green;
+        padding: 12px;
+        text-align: center;
+        color:white;
+        border: 1px solid black;
+        }
+         td {
+            padding: 12px;
+            text-align: center;
+
+        }
+        tr:nth-child(odd){
+    background:#90EE90;
+}
+
+tr:nth-child(even){
+    background-color: #90EE90;
+}
+
+        .delete-button {
+            background-color: red; /* Delete button color */
+            margin:10px 10px;
+            color:white;
+            border:none;
+            border-radius:2px;
+        }
+        .update-button {
+            margin:10px 10px;
+            background-color:green;
+            color:white;
+            border:none;
+            border-radius:2px;
+        }
+        input {
+            width:150px;
+            border:none;
+            background-color:#dde1e7;
+        }
+        table, th, td, tr {
+            border: 1px solid black;
+            border-collapse: collapse;
+            padding:0px;
+            margin-bottom:30px;
+        }
+          .search{
+        top:30%;
+        float:right;
+        margin-right:150px;
+        margin-top:30px;
+        }
+        .search input{
+        border-radius:8px;
+        height:20px;
+        }
+        .button2{
+        border:none;
+        border-radius:8px;
+        color:white;
+        height:20px;
+        background-color:green;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+<nav>
+     <a href="/products" style="margin-top:10px;">View Products</a>
+    <a href="/add_product" style="margin-top:10px;">Add Products</a>
+    <div class="dropdown">
+        <button class="dropbtn">Changes</button>
+        <div class="dropdown-content">
+            <a href='/update_products' >Update Products</a>
+            <a href="{{url_for('orderpage')}}">Orders</a>
+            <a href="{{url_for('admin_customers')}}">Customers</a>
+        </div>
+    </div>
+  <a style="height: 20px;margin-left:450px;margin-top:10px;float:left;" href="">Welcome to admin page!!</a>
+ <a style="margin-top:10px;float:right;" href="/">Logout</a>
+</nav>
+
+<div class="search">
+    <form action="/customers" method="post">
+        <input type="text" name="cid" placeholder="Enter customer id">
+        <button class="button2" type="submit">Search</button>
+    </form>
+</div>
+<h1 style="margin-left:65px;">Customer Details</h1>
+<div class="grid-container" style="align-items:center;justify-content:center;">
+    {%if customers%}
+    <table>
+        <thead>
+            <th>Customer ID</th>
+            <th>Customer Name</th>
+            <th>Customer Email</th>
+            <th>Customer Password</th>
+            <th>Customer Address</th>
+            <th>Customer Phone Number</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </thead>
+        <tbody>
+            {% for customer in customers %}
+            <tr>
+                <form method="POST" action="/update_customers" enctype="multipart/form-data">
+                    <td><input type="number" name="id" value="{{ customer[0] }}" readonly/></td>
+                    <td><input type="text" name="name" value="{{ customer[1] }}"/></td>
+                    <td><input type="email" name="email" value="{{ customer[2] }}"/></td>
+                    <td><input type="password" name="pass" value="{{ customer[3] }}"readonly/></td>
+                    <td><input type="text" name="add" value="{{ customer[4] }}"/></td>
+                    <td><input type="number" name="phone" value="{{ customer[5] }}"/></td>
+                    <td><button type="submit" name="update" class="update-button">Update</button></td>
+                </form>
+                <td>
+                    <form action="/delete_customer" method="POST">
+                        <input type="hidden" name="id" value="{{ customer[0] }}">
+                        <button name="delete" type="submit" class="delete-button">Delete</button>
+                    </form>
+                </td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    {%endif%}
+</div>
+</body>
+</html>

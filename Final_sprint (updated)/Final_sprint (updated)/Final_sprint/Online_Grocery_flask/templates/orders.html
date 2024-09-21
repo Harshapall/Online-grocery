@@ -1,0 +1,122 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Order Details</title>
+      <link rel="stylesheet" href="{{ url_for('static', filename='index.css') }}"/>
+    <style>
+        table, th, td,tr{
+  border: 1px solid black;
+  border-collapse: collapse;
+  padding:10px;
+            margin-left:40px;
+            margin-bottom:30px;
+}
+table {
+            width: 90%;
+            border-collapse: collapse;
+            margin-top:50px;
+            margin-left:80px;
+
+        }
+        th{
+        background-color:green;
+        padding: 12px;
+        text-align: center;
+        color:white;
+        border: 1px solid black;
+        }
+         td {
+            padding: 12px;
+            text-align: center;
+
+        }
+        tr:nth-child(odd){
+    background:#90EE90;
+}
+
+tr:nth-child(even){
+    background-color: rgba(243, 238,238,0.4);
+}
+
+        .search{
+        top:30%;
+        float:right;
+        margin-right:150px;
+        margin-top:30px;
+        }
+        .search input{
+        border-radius:8px;
+        height:20px;
+        }
+        button{
+        border:none;
+        border-radius:8px;
+        color:white;
+        height:20px;
+        background-color:green;
+        }
+    </style>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+
+
+ <nav>
+
+     <a href="/products" style="margin-top:10px;">View Products</a>
+    <a href="/add_product" style="margin-top:10px;">Add Products</a>
+    <div class="dropdown">
+        <button class="dropbtn">Changes</button>
+        <div class="dropdown-content">
+            <a href='/update_products' >update products</a>
+            <a href="{{url_for('orderpage')}}">Orders</a>
+            <a href="{{url_for('admin_customers')}}">Customers</a>
+        </div>
+    </div>
+    <a style="height: 20px;margin-left:450px;margin-top:10px;float:left;" href="">Welcome to admin page!!</a>
+    <a style="margin-top:10px;float:right;" href="/">Logout</a>
+</nav>
+
+<div class="search">
+    <form action="/orderspage" method="post">
+        <input type="text" name="cid" placeholder="Enter customer id">
+        <button type="submit">Search</button>
+    </form>
+</div>
+<h1 style="margin-left:80px;">Order Details</h1>
+{%if orders%}
+<table>
+    <thead>
+               <th>Order ID</th>
+               <th>product Name</th>
+               <th>customer ID</th>
+               <th>Product ID</th>
+               <th>product Quantity</th>
+               <th>Total Price</th>
+               <th>Payment Method</th>
+               <th>Transaction ID</th>
+               <th>Check out Status</th>
+               </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{order[0]}}</td>
+                        <td>{{order[4]}}</td>
+                        <td>{{order[2]}}</td>
+                        <td>{{order[3]}}</td>
+                        <td>{{order[5]}}</td>
+                        <td>{{order[6]}}</td>
+                        <td>{{order[7]}}</td>
+                        <td>{{order[8]}}</td>
+                        <td>{{order[9]}}</td>
+                    </tr>
+                {%endfor%}
+                </tbody>
+</table>
+{%endif%}
+
+</body>
+</html>

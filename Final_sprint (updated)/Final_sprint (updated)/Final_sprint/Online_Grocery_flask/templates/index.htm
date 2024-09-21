@@ -1,0 +1,101 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Home page</title>
+    <link rel="stylesheet" href="{{url_for('static',filename='index.css')}}"/>
+
+    <style>
+        .add-to-cart{
+            background-color: #4CAF50;
+            color:white;
+            border:none;
+            border-radius: 8px;
+            padding:5px;
+        }
+        .add-to-cart:hover{
+            background-color: #669b30;
+        }
+    </style>
+    <script>
+        function alertclick(){
+
+        alert('product added successfull')
+        }
+         </script>
+</head>
+<body>
+<header>
+    <h2>Welcome to Our Grocery Store</h2>
+</header>
+<nav>
+    <img style="height: 20px; margin-left:30px; margin-top:10px; float:left;" src="static\home.jpeg">
+    <a href="/home">Home</a>
+    <img style="height: 25px; margin-left:30px; margin-top:10px; float:left;" src="static\profile.jpeg">
+    <a href="/profile">Profile</a>
+    <img style="height: 20px; margin-left:30px; margin-top:10px; float:left;" src="static\cart.png">
+    <a href="/cart">Cart </a>
+    <img style="height: 20px; margin-right:30px; margin-top:10px; float:right;" src="static\logout.jpeg">
+    <a style="float:right;" href="/logout">Logout</a>
+</nav>
+<section>
+    <h2>Featured Products</h2>
+    <p>Explore our selection of fresh and high-quality groceries.</p>
+</section>
+<!-- Slideshow container -->
+<div class="slideshow-container">
+    <!-- Slides -->
+    <div class="mySlides fade">
+        <img src="static\slide1.png" style="width:100%;height:400px;">
+    </div>
+    <div class="mySlides fade">
+        <img src="static\slide2.jpg" style="width:100%;height:400px;">
+    </div>
+    <div class="mySlides fade">
+        <img src="static\slide3.jpeg" style="width:100%;height:400px;">
+    </div>
+    <div class="mySlides fade">
+        <img src="static\Dal.jpeg" style="width:100%;height:400px;">
+    </div>
+    <div class="mySlides fade">
+        <img src="static\offer.jpg" style="width:100%;height:400px;">
+    </div>
+</div>
+<!-- Grid container for products -->
+<div class="grid-container">
+    {% for product in products %}
+    <div class="product">
+        <img src="{{ product[4] }}" alt="Product Image">
+        <div class="product-details">
+            <p>Name: {{ product[1] }}</p>
+            <p>Price: {{ product[2] }}</p>
+            <p>Category: {{ product[3] }}</p>
+        </div>
+        <form action="/add_to_cart"  method="post">
+            <input type="hidden" name="itemid" value="{{product[0]}}">
+            <button class="add-to-cart" onclick="alertclick()">Add to Cart</button>
+        </form>
+
+    </div>
+    {% endfor %}
+</div>
+
+
+<script>
+    var slideIndex = 0;
+    showSlides();
+
+    function showSlides() {
+        var i;
+        var slides = document.getElementsByClassName("mySlides");
+        for (i = 0; i < slides.length; i++) {
+            slides[i].style.display = "none";
+        }
+        slideIndex++;
+        if (slideIndex > slides.length) {slideIndex = 1}
+        slides[slideIndex-1].style.display = "block";
+        setTimeout(showSlides, 2000); // Change image every 2 seconds
+    }
+</script>
+
+</body>
+</html>
